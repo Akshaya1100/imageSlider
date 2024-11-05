@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Slider</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: black; /* Added background for better visibility */
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Set a max width for the slider */
+            margin: auto; /* Center the slider */
+            overflow: hidden;
+        }
+
+        .slider-image {
+            display: none; /* Hide images by default */
+            width: 100%;
+            height: auto;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .active {
+            display: block; /* Show active image */
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+        }
+
+        .slider-nav button {
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            color: white;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .slider-nav button:hover {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-container">
+    <img class="slider-image active" src="image1.jpeg" alt="Image 1">
+    <img class="slider-image" src="image2.jpeg" alt="Image 2">
+    <img class="slider-image" src="image3.jpeg" alt="Image 3">
+    <div class="slider-nav">
+        <button onclick="previousImage()">&#10094;</button>
+        <button onclick="nextImage()">&#10095;</button>
+    </div>
+</div>
+
+<script>
+    var currentIndex = 0;
+    var images = document.querySelectorAll('.slider-image');
+
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.classList.remove('active');
+            if (i === index) {
+                img.classList.add('active');
+            }
+        });
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    }
+
+    function previousImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+    }
+
+    // Optional: Auto slide every 3 seconds
+    setInterval(nextImage, 3000);
+</script>
+
+</body>
+</html>
